@@ -5,6 +5,7 @@ Feature: Testing Reqres API for endpoint CREATE USER
     When Send request post create user
     Then Should return status code 201
     And Response body name should be "alifa" and job "SDET"
+    And Validate json schema create user
 
   @Tugas
   Scenario: Post create new user with invalid json

@@ -4,8 +4,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import net.serenitybdd.rest.SerenityRest;
+import net.thucydides.core.annotations.Fields;
 import net.thucydides.core.annotations.Steps;
+
+import java.io.File;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -36,5 +40,11 @@ public class ListUsersStepDef {
     @Given("Get list user with page {string}")
     public void getListUserWithPage(String param) {
         reqresAPI.setGetListUser(param);
+    }
+
+    @And("Validate json schema list users")
+    public void validateJsonSchemaListUser() {
+        File jsonSchema = new File(ReqresAPI.JSON_SCHEMA + "/ListUsersSchema.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonSchema));
     }
 }

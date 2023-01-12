@@ -14,6 +14,7 @@ public class ReqresAPI {
     public static String JSON_REQUEST = DIR+"/src/test/resources/JSON/Request";
     public static String PUT_UPDATE_USER = BASE_URL + "/api/users/{id}";
     public static String DELETE_USER = BASE_URL + "/api/users/{id}";
+    public static String JSON_SCHEMA = DIR + "/src/test/resources/JSON/JsonSchema";
 
     @Step("Get list users")
     public void setGetListUser(int page){
