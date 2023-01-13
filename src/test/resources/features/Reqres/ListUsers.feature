@@ -21,3 +21,10 @@ Feature: Testing Reqres API for endpoint LIST USERS
     | #     |
     | i     |
     | bnm   |
+
+  @Tugas
+  Scenario: Get list users with invalid response body
+    Given Get list user with page 2
+    When Send request get list users
+    Then Should return status code 200
+    And Validate json schema list users with invalid schema

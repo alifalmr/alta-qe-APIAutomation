@@ -1,4 +1,4 @@
-package starter.reqres;
+package starter.reqres.StepDef;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -8,6 +8,9 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Fields;
 import net.thucydides.core.annotations.Steps;
+import starter.reqres.ReqresAPI;
+import starter.reqres.Utils.Constant;
+import starter.reqres.Utils.ReqresResponses;
 
 import java.io.File;
 
@@ -34,7 +37,7 @@ public class ListUsersStepDef {
 
     @And("Response body should page should be {int}")
     public void responseBodyShouldPageShouldBe(int page) {
-        SerenityRest.then().body("page",equalTo(page));
+        SerenityRest.then().body(ReqresResponses.PAGE,equalTo(page));
     }
 
     @Given("Get list user with page {string}")
@@ -44,7 +47,13 @@ public class ListUsersStepDef {
 
     @And("Validate json schema list users")
     public void validateJsonSchemaListUser() {
-        File jsonSchema = new File(ReqresAPI.JSON_SCHEMA + "/ListUsersSchema.json");
+        File jsonSchema = new File(Constant.JSON_SCHEMA + "/ListUsersSchema.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonSchema));
+    }
+
+    @And("Validate json schema list users with invalid schema")
+    public void validateJsonSchemaListUsersWithInvalidSchema() {
+        File jsonSchema = new File(Constant.JSON_SCHEMA + "/InvalidListUsersSchema.json");
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonSchema));
     }
 }
