@@ -20,7 +20,7 @@ public class ListUsersStepDef {
     @Steps
     ReqresAPI reqresAPI;
 
-    @Given("Get list user with page {int}")
+    @Given("Get list users with page {int}")
     public void getListUserWithPage(int page) {
         reqresAPI.setGetListUser(page);
     }
@@ -40,7 +40,7 @@ public class ListUsersStepDef {
         SerenityRest.then().body(ReqresResponses.PAGE,equalTo(page));
     }
 
-    @Given("Get list user with page {string}")
+    @Given("Get list users with page {string}")
     public void getListUserWithPage(String param) {
         reqresAPI.setGetListUser(param);
     }
@@ -51,9 +51,44 @@ public class ListUsersStepDef {
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonSchema));
     }
 
-    @And("Validate json schema list users with invalid schema")
-    public void validateJsonSchemaListUsersWithInvalidSchema() {
-        File jsonSchema = new File(Constant.JSON_SCHEMA + "/InvalidListUsersSchema.json");
+    @Given("Get list users with parameter per_page {int}")
+    public void getListUsersWithParameterPer_page(int perPage) {
+        reqresAPI.setPerpageListUsers(perPage);
+    }
+
+    @When("Send request get list users with parameter per_page")
+    public void sendRequestGetListUsersWithParameterPer_page() {
+        SerenityRest.when().get(ReqresAPI.PERPAGE_LIST_USERS);
+    }
+
+    @And("Response body per_page should be {int} and total_pages should be {int}")
+    public void responseBodyPer_pageShouldBeAndTotal_pagesShouldBe(int perPage, int totalPages) {
+        SerenityRest.then()
+                    .body(ReqresResponses.PER_PAGE,equalTo(perPage))
+                    .body(ReqresResponses.TOTAL_PAGES,equalTo(totalPages));
+    }
+
+    @And("Validate json schema list users per_page")
+    public void validateJsonSchemaListUsersPer_page() {
+        File jsonSchema = new File(Constant.JSON_SCHEMA + "/ListPerPageSchema.json");
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonSchema));
+    }
+
+    @Given("Get list users with parameter per_page {int} and page {int}")
+    public void getListUsersWithParameterPer_pageAndPage(int perPage, int page) {
+        reqresAPI.setPagePerpageListUsers(perPage,page);
+    }
+
+    @When("Send request get list users with parameter per_page and page")
+    public void sendRequestGetListUsersWithParameterPer_pageAndPage() {
+        SerenityRest.when().get(ReqresAPI.PAGE_PERPAGE_LIST_USERS);
+    }
+
+    @And("Response body page should be {int}, per_page should be {int} and total_pages should be {int}")
+    public void responseBodyPageShouldBeAndPer_pageShouldBe(int page, int perPage, int totalPages) {
+        SerenityRest.then()
+                    .body(ReqresResponses.PAGE,equalTo(page))
+                    .body(ReqresResponses.PER_PAGE,equalTo(perPage))
+                    .body(ReqresResponses.TOTAL_PAGES,equalTo(totalPages));
     }
 }

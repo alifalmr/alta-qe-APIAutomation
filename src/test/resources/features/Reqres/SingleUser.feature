@@ -10,3 +10,13 @@ Feature: Testing Reqres API for endpoin SINGLE USER
     | id |
     | 3  |
     | 6  |
+
+  @Tugas
+  Scenario Outline: Get a user with invalid id
+    Given Get a user with id <id>
+    When Send request get a user
+    Then Should return status code 404
+  Examples:
+    | id |
+    | 14 |
+    | 23 |

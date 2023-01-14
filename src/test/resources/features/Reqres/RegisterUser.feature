@@ -7,3 +7,4 @@ Feature: Testing Reqres API for endpoint REGISTER SUCCESSFUL
     And Response body id should be 4
     And Validate json schema register user
 
+
