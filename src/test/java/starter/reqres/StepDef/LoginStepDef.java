@@ -15,7 +15,7 @@ public class LoginStepDef {
     @Steps
     ReqresAPI reqresAPI;
 
-    @Given("Post login user with valid json")
+    @Given("Post login user with valid email and password")
     public void postLoginUserWithValidJson() {
         File json = new File(Constant.JSON_REQUEST + "/Login.json");
         reqresAPI.setLOGIN(json);
@@ -32,9 +32,21 @@ public class LoginStepDef {
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonSchema));
     }
 
-    @Given("Post login user with invalid json")
+    @Given("Post login user without password")
     public void postLoginUserWithInvalidJson() {
         File json = new File(Constant.JSON_REQUEST + "/InvalidLogin.json");
+        reqresAPI.setLOGIN(json);
+    }
+
+    @Given("Post login user with valid username and password")
+    public void postLoginUserWithValidUsernameAndPassword() {
+        File json = new File(Constant.JSON_REQUEST + "/LoginWithUsername.json");
+        reqresAPI.setLOGIN(json);
+    }
+
+    @Given("Post login user without email")
+    public void postLoginUserWithoutEmail() {
+        File json = new File(Constant.JSON_REQUEST + "/LoginWithoutEmail.json");
         reqresAPI.setLOGIN(json);
     }
 }

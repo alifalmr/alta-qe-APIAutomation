@@ -9,4 +9,5 @@ public class ReqresResponses {
     public static String DATA_EMAIL = "'data.email'";
     public static String PER_PAGE = "per_page";
     public static String TOTAL_PAGES = "total_pages";
+    public static String ERROR = "error";
 }

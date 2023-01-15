@@ -31,4 +31,10 @@ public class UpdateUserStepDef {
         File jsonSchema = new File(Constant.JSON_SCHEMA + "/UpdateUserSchema.json");
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(jsonSchema));
     }
+
+    @Given("Put update user with invalid json with id {int}")
+    public void putUpdateUserWithInvalidJsonWithId(int id) {
+        File json = new File(Constant.JSON_REQUEST + "/InvalidRequest.json");
+        reqresAPI.putUpdateUser(id,json);
+    }
 }

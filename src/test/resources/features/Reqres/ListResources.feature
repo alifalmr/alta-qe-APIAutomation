@@ -1,5 +1,5 @@
 Feature: Testing Reqres API for endpoint LIST RESOURCES
-  @Tugas
+  @Latihan
   Scenario: Get list resources
     Given Get list resources
     When Send request get list resources

@@ -9,7 +9,7 @@ import starter.reqres.ReqresAPI;
 public class DeleteUserStepDef {
     @Steps
     ReqresAPI reqresAPI;
-    @Given("Delete user with valid id {int}")
+    @Given("Delete user with id {int}")
     public void deleteUserWithValidIdId(int id) {
         reqresAPI.deleteUser(id);
     }
